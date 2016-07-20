@@ -8,21 +8,18 @@ endif
 
 CC	?= gcc
 CFLAGS += -Wall -std=c99 -Os -DVERSION="\"$(VERSION)\"" -I/usr/include/freetype2
-LDFLAGS += -lxcb -lxcb-xinerama -lxcb-randr -lX11 -lX11-xcb -lXft -lfreetype -lz -lfontconfig
+LDFLAGS += -lm -lsensors -lxcb -lxcb-xinerama -lxcb-randr -lX11 -lX11-xcb -lXft -lfreetype -lz -lfontconfig
 CFDEBUG = -g3 -pedantic -Wall -Wunused-parameter -Wlong-long \
           -Wsign-conversion -Wconversion -Wimplicit-function-declaration
 
-EXEC = lemonbar
-SRCS = lemonbar.c
+EXEC = cbar
+SRCS = cbar.c render.c
 OBJS = ${SRCS:.c=.o}
 
 PREFIX?=/usr
 BINDIR=${PREFIX}/bin
 
 all: ${EXEC}
-
-doc: README.pod
-	pod2man --section=1 --center="lemonbar Manual" --name "lemonbar" --release="lemonbar $(VERSION)" README.pod > lemonbar.1
 
 .c.o:
 	${CC} ${CFLAGS} -o $@ -c $<
@@ -37,12 +34,12 @@ clean:
 	rm -f ./*.o ./*.1
 	rm -f ./${EXEC}
 
-install: lemonbar doc
-	install -D -m 755 lemonbar ${DESTDIR}${BINDIR}/lemonbar
-	install -D -m 644 lemonbar.1 ${DESTDIR}${PREFIX}/share/man/man1/lemonbar.1
+install: cbar doc
+	install -D -m 755 cbar ${DESTDIR}${BINDIR}/cbar
+	install -D -m 644 cbar.1 ${DESTDIR}${PREFIX}/share/man/man1/cbar.1
 
 uninstall:
-	rm -f ${DESTDIR}${BINDIR}/lemonbar
-	rm -f $(DESTDIR)$(PREFIX)/share/man/man1/lemonbar.1
+	rm -f ${DESTDIR}${BINDIR}/cbar
+	rm -f $(DESTDIR)$(PREFIX)/share/man/man1/cbar.1
 
 .PHONY: all debug clean install
