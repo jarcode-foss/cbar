@@ -731,7 +731,7 @@ RENDER_FUNC {
         acounter = 0;
     }
 
-    lucounter++;
+    lucounter++;y
     if (lucounter >= 5) {
         lucounter = 0;
     }
