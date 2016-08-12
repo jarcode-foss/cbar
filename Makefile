@@ -7,10 +7,10 @@ ifneq "$(GIT_DESC)" ""
 endif
 
 CC	?= gcc
-CFLAGS += -Wall -std=c99 -Os -DVERSION="\"$(VERSION)\"" -I/usr/include/freetype2
-LDFLAGS += -lm -lsensors -lxcb -lxcb-xinerama -lxcb-randr -lX11 -lX11-xcb -lXft -lfreetype -lz -lfontconfig
-CFDEBUG = -g3 -pedantic -Wall -Wunused-parameter -Wlong-long \
-          -Wsign-conversion -Wconversion -Wimplicit-function-declaration
+CFLAGS += -Wall -std=gnu99 -Os -DVERSION="\"$(VERSION)\"" -I/usr/include/freetype2
+LDFLAGS += -lm -lalpm -pthread -lsensors -lxcb -lxcb-xinerama -lxcb-randr -lX11 -lX11-xcb -lXft -lfreetype -lz -lfontconfig
+CFDEBUG = -ggdb -Wall -Wunused-parameter \
+          -Wimplicit-function-declaration
 
 EXEC = cbar
 SRCS = cbar.c render.c
